@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-05-19T07:53:23.289Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36 OPR/85.0.4341.79" etag="OTFdONTZ0cffsjXNTHQq" version="18.0.7" type="github">
+<mxfile host="app.diagrams.net" modified="2022-05-19T07:55:23.046Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36 OPR/85.0.4341.79" etag="v9EAaC0fwPOlNrKpTAsw" version="18.0.7" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
-    <mxGraphModel dx="1405" dy="815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+    <mxGraphModel dx="954" dy="553" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -695,13 +695,13 @@
             <mxPoint x="440" y="440" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="mUqGu90F78HGbnREvPw7-192" value="- Attente&lt;br&gt;- Préparation&lt;br&gt;- Livraison&lt;br&gt;- Livrée" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+        <mxCell id="mUqGu90F78HGbnREvPw7-192" value="0 Attente&lt;br&gt;1 Préparation&lt;br&gt;2 Livraison&lt;br&gt;3 Livrée" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
           <mxGeometry x="590" y="440" width="170" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="mUqGu90F78HGbnREvPw7-193" value="- Libre&lt;br&gt;- Livraison" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+        <mxCell id="mUqGu90F78HGbnREvPw7-193" value="0 Libre&lt;br&gt;1 Livraison&lt;br&gt;2 Non disponible" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
           <mxGeometry x="1290" y="240" width="170" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="mUqGu90F78HGbnREvPw7-194" value="- Voiture&lt;br&gt;- Moto" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+        <mxCell id="mUqGu90F78HGbnREvPw7-194" value="0 Voiture&lt;br&gt;1 Moto" style="shape=note;size=20;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
           <mxGeometry x="1290" y="370" width="170" height="100" as="geometry" />
         </mxCell>
       </root>
