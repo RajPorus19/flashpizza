@@ -21,7 +21,15 @@ public class HelloController implements ErrorController{
 
     @GetMapping("/")
 	public String index() {
-		return "Greetings from Spring Boot! ça marche !";
+    	Database.get_test_table();
+		return "database is working ! page";
 	}
-
+    @GetMapping("/about")
+	public String about() {
+		return "about page";
+	}
+    @GetMapping("/test")
+	public String test() {
+		return "test page";
+	}
 }
