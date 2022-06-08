@@ -2,6 +2,7 @@ package com.flashpizza.flashpizza.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.flashpizza.flashpizza.Database;
@@ -35,5 +36,10 @@ public class UserAPI {
     	}
 
 		return users_list;
+	}
+
+	public void addUser(String name) throws SQLException{
+		Statement statement = db.connection.createStatement();
+		statement.executeUpdate("INSERT INTO test_table (name) VALUES (\""+name+"\")");
 	}
 }

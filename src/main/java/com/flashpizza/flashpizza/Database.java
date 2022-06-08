@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
-	Connection connection;
+	public Connection connection;
 	public void connect_db() {
 		// default MYSQL port
 		String url = "jdbc:mysql://localhost:3306/flashpizza?serverTimezone=UTC";
