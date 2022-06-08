@@ -13,7 +13,6 @@ public class UserAPI {
 	private ArrayList<String> users_list;
 	
 	public UserAPI() throws SQLException {
-		this.db.connect_db();
 		this.users_list = get_users();
 	}
 
@@ -21,12 +20,12 @@ public class UserAPI {
 	
 	public ArrayList<String> get_users() throws SQLException {
 		
-    	ResultSet res = db.query_db("select * from test_table");
+    	ResultSet res = db.query_db("select * from user");
     	ArrayList<String> users_list = new ArrayList<String>();
     	if(res != null) {
         	while(res.next()) {
     			String id = "id : "+res.getInt("id");
-    			String name  = "name : "+res.getString("name");
+    			String name  = "username : "+res.getString("username");
     			String line = id + " " + name;
     			users_list.add(line);
     		}
@@ -38,8 +37,10 @@ public class UserAPI {
 		return users_list;
 	}
 
-	public void addUser(String name) throws SQLException{
-		Statement statement = db.connection.createStatement();
-		statement.executeUpdate("INSERT INTO test_table (name) VALUES (\""+name+"\")");
+	public void addUser(User user) throws SQLException{
+		db.update_db("INSERT INTO user (username,phone_number,email,password) VALUES (\""+user.getUsername()+"\",'"
+		+ user.getPhone_number()+"','"
+		+user.getEmail()+"','"
+		+user.getPassword()+"')");
 	}
 }

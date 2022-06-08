@@ -4,6 +4,9 @@
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<button>
+    <a th:href="@{/adduser}">Add user</a>
+</button>
 <body>
     <p> This is the list of all the users </p>
     <th:block th:each="user : ${users}">

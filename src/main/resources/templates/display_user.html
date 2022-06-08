@@ -6,6 +6,10 @@
 </head>
 <body>
     <p> Created new user : </p>
-    <p th:text="'name : ' + ${user.name}" />
+    <p th:text="'username : ' + ${user.username}" />
 </body>
+<button>
+
+    <a th:href="@{/}">Continue</a>
+</button>
 </html>

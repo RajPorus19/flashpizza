@@ -43,7 +43,7 @@ public class HelloController {
 	public String displayUser(@ModelAttribute User user,Model model) throws SQLException {
     	model.addAttribute("user", user);
 		UserAPI userAPI = new UserAPI();
-		userAPI.addUser(user.getName()) ;
+		userAPI.addUser(user) ;
 		return "display_user";
 	}
     @GetMapping("/about")

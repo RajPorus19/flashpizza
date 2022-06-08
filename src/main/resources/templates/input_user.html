@@ -7,7 +7,10 @@
 <body>
     <p> Add new user : </p>
     <form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
-        <p>input Name: <input type="text" th:field="*{name}" /></p>
+        <p>username: <input type="text" th:field="*{username}" /></p>
+        <p>password: <input type="password" th:field="*{password}" /></p>
+        <p>phone number: <input type="text" th:field="*{phone_number}" /></p>
+        <p>email: <input type="text" th:field="*{email}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
