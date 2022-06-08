@@ -1,16 +1,23 @@
 package com.flashpizza.flashpizza;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-@RestController
-public class HelloController implements ErrorController{
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.flashpizza.flashpizza.models.UserAPI;
+
+@Controller
+public class HelloController {
 
     private static final String PATH = "/error";
 
-    @RequestMapping(value = PATH)
+    @GetMapping(value = PATH)
     public String error() {
         return "Error handling";
     }
@@ -20,9 +27,11 @@ public class HelloController implements ErrorController{
     }
 
     @GetMapping("/")
-	public String index() {
-    	Database.get_test_table();
-		return "database is working ! page";
+	public String index(Model model) throws SQLException {
+    	UserAPI userAPI = new UserAPI();
+    	ArrayList<String> users = userAPI.get_users();
+    	model.addAttribute("users", users);
+		return "users";
 	}
     @GetMapping("/about")
 	public String about() {
