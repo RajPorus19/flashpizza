@@ -7,7 +7,10 @@
 <body>
     <p> This is the list of all the users </p>
     <th:block th:each="user : ${users}">
-       <li th:utext="${user}">..</li>
+        <div>
+            <input type="checkbox" th:id="${user}" th:name="${user}">
+            <label th:for="${user}" th:text="${user}"></label>
+        </div>
      </th:block>
 </body>
 </html>
