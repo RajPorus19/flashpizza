@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
@@ -14,7 +15,9 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class FlashpizzaApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
+		Database db = new Database();
+		db.init_db();
 		SpringApplication.run(FlashpizzaApplication.class, args);
 	}
 

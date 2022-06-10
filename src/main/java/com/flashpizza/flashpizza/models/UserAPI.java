@@ -38,9 +38,9 @@ public class UserAPI {
 	}
 
 	public void addUser(User user) throws SQLException{
-		db.update_db("INSERT INTO user (username,phone_number,email,password) VALUES (\""+user.getUsername()+"\",'"
+		db.update_db("INSERT INTO user (username,phone_number,email,password,balance) VALUES (\""+user.getUsername()+"\",'"
 		+ user.getPhone_number()+"','"
 		+user.getEmail()+"','"
-		+user.getPassword()+"')");
+		+user.getPassword()+"',0)");
 	}
 }
