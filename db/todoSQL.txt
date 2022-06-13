@@ -1,0 +1,46 @@
+Triggers :
+
+before update order :
+	- if new state = ordered => check user balance
+	- if new state = delivering => check messenger id NOT NULL
+
+after update order : 
+	- if new state = ordered => update user balance
+	- if new state = delivering => update messenger status
+	- if new state = delivered => update messenger status
+
+before insert order_line :
+	- set price
+after insert order_line : 
+	- update odrer price
+
+after update order_line :
+	- set price
+	- update order price
+
+after delete order_line : 
+	- update order price
+
+after update messenger :
+	- if new vehicle id is not NULL => update vehicle state
+
+
+View : 
+
+available_messenger
+available_vehicles
+pizza_price
+menu
+
+Use cases :
+
+Staff : 
+
+- insert pizza
+- insert ingredient
+- link pizza ingredients
+
+Customer :
+
+- see menu
+- 
