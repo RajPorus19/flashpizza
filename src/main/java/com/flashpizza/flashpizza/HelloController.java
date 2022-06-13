@@ -1,5 +1,6 @@
 package com.flashpizza.flashpizza;
 
+import java.io.Console;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.flashpizza.flashpizza.models.User;
 import com.flashpizza.flashpizza.models.UserAPI;
@@ -16,24 +20,41 @@ import com.flashpizza.flashpizza.models.UserAPI;
 @Controller
 public class HelloController {
 
-    private static final String PATH = "/error";
 
-    @GetMapping(value = PATH)
+    @GetMapping("/error")
     public String error() {
-        return "Error handling";
+        return "error";
     }
 
-    public String getErrorPath() {
-        return PATH;
-    }
+	@GetMapping("/")
+	public String home(){
+		return "home";
+	}
 
-    @GetMapping("/")
+	@GetMapping("/staff")
+	public String staff(){
+		return "staff";
+	}
+	
+
+    @GetMapping("/users")
 	public String users(Model model) throws SQLException {
     	UserAPI userAPI = new UserAPI();
-    	ArrayList<String> users = userAPI.get_users();
+    	ArrayList<User> users = userAPI.get_users();
     	model.addAttribute("users", users);
 		return "users";
 	}
+
+	@PostMapping("/deleteusers")
+	public String delete_user(@RequestParam("usersChecked") ArrayList<String> usersChecked) throws SQLException {
+		UserAPI userAPI = new UserAPI();
+		for (String id : usersChecked) {
+			userAPI.deleteUser(id);
+		}
+		
+		return "deleteuser";
+	}
+
 	@GetMapping("/adduser")
 	public String addUsers(Model model) throws SQLException {
     	model.addAttribute("user", new User());
@@ -46,6 +67,28 @@ public class HelloController {
 		userAPI.addUser(user) ;
 		return "display_user";
 	}
+
+
+	@GetMapping("/useredit/{id}")
+	public String editUser(@PathVariable int id, Model model) throws SQLException{
+		String strId = Integer.toString(id);
+		UserAPI userAPI = new UserAPI();
+		User currentUser = userAPI.getUser(strId);
+		System.out.println("CURRENT USER NAME IS THIS SHIT :"+currentUser.getId());
+
+		model.addAttribute("user",currentUser);
+		return "edit_user";
+	}
+	@PostMapping("/useredited/{id}")
+	public String saveUser(@PathVariable int id,@ModelAttribute User user,Model model) throws SQLException {
+		String strId = Integer.toString(id);
+    	model.addAttribute("user", user);
+		UserAPI userAPI = new UserAPI();
+		user.setId(strId);
+		userAPI.save(user);
+		return "edited_user";
+	}
+
     @GetMapping("/about")
 	public String about() {
 		return "about page";

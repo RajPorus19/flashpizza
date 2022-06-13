@@ -3,10 +3,25 @@ package com.flashpizza.flashpizza.models;
 
 public class User {
 
+    private String id;
+
+
     private String username;
     private String password;
     private String email;
     private String phone_number;
+
+    public User(){
+
+    }
+
+    public User(String id,String username, String password, String email, String phone_number){
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone_number = phone_number;
+    }
 
 
     public String getPassword() {
@@ -39,6 +54,13 @@ public class User {
 
     public String getUsername(){
         return this.username;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id){
+        this.id = id;
     }
 
 }

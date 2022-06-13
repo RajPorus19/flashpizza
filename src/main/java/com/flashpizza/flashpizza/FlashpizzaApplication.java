@@ -17,6 +17,7 @@ public class FlashpizzaApplication {
 
 	public static void main(String[] args) throws SQLException {
 		Database db = new Database();
+		db.create_db();
 		db.init_db();
 		SpringApplication.run(FlashpizzaApplication.class, args);
 	}

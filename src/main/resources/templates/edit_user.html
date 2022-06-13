@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p> Edit user: </p>
+    <form action="#" th:action="@{@{'/useredited/' + ${user.getId()}}}" th:object="${user}" method="post">
+        <p>username: <input type="text" th:field="*{username}" /></p>
+        <p>password: <input type="password" th:field="*{password}" /></p>
+        <p>phone number: <input type="text" th:field="*{phone_number}" /></p>
+        <p>email: <input type="text" th:field="*{email}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

@@ -9,11 +9,15 @@
 </button>
 <body>
     <p> This is the list of all the users </p>
+    <form action="#" th:action="@{/deleteusers}" th:object="${users}" method="post">
     <th:block th:each="user : ${users}">
         <div>
-            <input type="checkbox" th:id="${user}" th:name="${user}">
-            <label th:for="${user}" th:text="${user}"></label>
+            <input type="checkbox" th:id="${user.getId()}" th:name="usersChecked" th:value="${user.getId()}">
+            <label th:for="${user.getUsername()}" th:text="${user.getUsername()}"></label>
+            <a th:href="@{'/useredit/' + ${user.getId()}}">edit</a>
         </div>
      </th:block>
+     <p><input type="submit" value="Delete users" /> <input type="reset" value="Reset" /></p>
+    </form>
 </body>
 </html>
