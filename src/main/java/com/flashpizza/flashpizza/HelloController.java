@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.flashpizza.flashpizza.models.Ingredient;
+import com.flashpizza.flashpizza.models.IngredientAPI;
 import com.flashpizza.flashpizza.models.User;
 import com.flashpizza.flashpizza.models.UserAPI;
 
@@ -97,4 +99,13 @@ public class HelloController {
 	public String test() {
 		return "test page";
 	}
+
+    @GetMapping("/ingredients")
+	public String ingredients(Model model) throws SQLException {
+    	IngredientAPI ingredientAPI = new IngredientAPI();
+    	ArrayList<Ingredient> ingredients = ingredientAPI.get_ingredients();
+    	model.addAttribute("ingredients", ingredients);
+		return "ingredients";
+	}
+
 }
