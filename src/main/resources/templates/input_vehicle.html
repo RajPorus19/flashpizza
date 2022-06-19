@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p> Add new vehicle: </p>
+    <form action="#" th:action="@{/addvehicle}" th:object="${vehicle}" method="post">
+        <p>name: <input type="text" th:field="*{matriculation}" /></p>
+        <p>State :</p>
+        <th:block th:each="state: ${states}">
+            <div>
+                <input type="radio" th:id="${state.getId()}" th:name="statesChecked" th:value="${state.getId()}">
+                <label th:for="${state.getName()}" th:text="${state.getName()}"></label>
+            </div>
+        </th:block>
+        <p>Vehicle type :</p>
+        <th:block th:each="typevehicle: ${typevehicles}">
+            <div>
+                <input type="radio" th:id="${typevehicle.getId()}" th:name="typevehiclesChecked" th:value="${typevehicle.getId()}">
+                <label th:for="${typevehicle.getName()}" th:text="${typevehicle.getName()}"></label>
+            </div>
+        </th:block>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

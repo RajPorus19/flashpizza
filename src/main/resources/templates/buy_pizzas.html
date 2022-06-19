@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Buy pizzas</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<a th:href="@{/pizzas}" >Basket</a>
+<body>
+    <h3>Here are all our pizzas !</h3>
+    <th:block th:each="pizza: ${pizzas}">
+            <a th:href="@{'/pizzaedit/' + ${pizza.getId()}}" th:text="${pizza.getName()}"></a>
+            <br>
+     </th:block>
+    </form>
+</body>
+</html>

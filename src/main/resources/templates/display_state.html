@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>State added</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p> Created new state: </p>
+    <p th:text="'name : ' + ${state.name}" />
+</body>
+<button>
+
+    <a th:href="@{/states}">Continue</a>
+</button>
+</html>

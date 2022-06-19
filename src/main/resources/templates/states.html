@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Staff - state</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<button onclick="window.location.href='/'">Go back</button>
+<br>
+<br>
+<button onclick="window.location.href='/addstate'">Add a new state</button>
+<body>
+    <p> This is the list of all the states</p>
+    <form action="#" th:action="@{/deletestate}" th:object="${states}" method="post">
+    <th:block th:each="state: ${states}">
+        <div>
+            <input type="checkbox" th:id="${state.getId()}" th:name="statesChecked" th:value="${state.getId()}">
+            <label th:for="${state.getName()}" th:text="${state.getName()}"></label>
+            <a th:href="@{'/state/' + ${state.getId()}}">edit</a>
+        </div>
+     </th:block>
+     <p><input type="submit" value="Delete states" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

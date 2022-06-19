@@ -23,6 +23,8 @@ import com.flashpizza.flashpizza.models.Pizza;
 import com.flashpizza.flashpizza.models.PizzaAPI;
 import com.flashpizza.flashpizza.models.PizzaIngredient;
 import com.flashpizza.flashpizza.models.PizzaIngredientAPI;
+import com.flashpizza.flashpizza.models.State;
+import com.flashpizza.flashpizza.models.StateAPI;
 import com.flashpizza.flashpizza.models.TypeVehicle;
 import com.flashpizza.flashpizza.models.TypeVehicleAPI;
 import com.flashpizza.flashpizza.models.User;
@@ -224,6 +226,37 @@ public class HelloController {
 		return "vehicles";
 	}
 
+	@GetMapping("/addvehicle")
+	public String addVehicle(Model model) throws SQLException {
+    	model.addAttribute("vehicle", new Vehicle());
+		TypeVehicleAPI typeVehicleAPI = new TypeVehicleAPI();
+		StateAPI stateAPI = new StateAPI();
+    	ArrayList<TypeVehicle> typevehicles = typeVehicleAPI.get_typeVehicles();
+    	ArrayList<State> states = stateAPI.get_states();
+    	model.addAttribute("typevehicles", typevehicles);
+    	model.addAttribute("states", states);
+		return "input_vehicle";
+	}
+
+	@PostMapping("/addevehicle")
+	public String displayVehicle(@ModelAttribute Vehicle vehicle,Model model,@RequestParam("typevehiclesChecked") ArrayList<String> typevehiclesChecked,@RequestParam("statesChecked") ArrayList<String> statesChecked) throws SQLException {
+    	model.addAttribute("vehicle", vehicle);
+		String stateId = "null";
+		String typeId = "null";
+		for (String string : statesChecked) {
+			stateId = string;
+		}
+		for (String string : typevehiclesChecked) {
+			typeId = string;
+		}
+		VehicleAPI vehicleAPI = new VehicleAPI();
+		vehicle.setState_id(stateId);
+		vehicle.setType_id(typeId);
+		vehicleAPI.addVehicle(vehicle);
+		return "display_vehicle";
+	}
+
+
     @GetMapping("/typevehicles")
 	public String typevehicles(Model model) throws SQLException {
 		TypeVehicleAPI typeVehicleAPI = new TypeVehicleAPI();
@@ -234,7 +267,7 @@ public class HelloController {
 
 	@GetMapping("/addtypevehicle")
 	public String addTypeVehicle(Model model) throws SQLException {
-    	model.addAttribute("typevehicle", new TypeVehicle());
+    	model.addAttribute("typevehicle", new State());
 		return "input_typevehicle";
 	}
 
@@ -276,4 +309,72 @@ public class HelloController {
 		return "edited_typevehicle";
 	}
 
+    @GetMapping("/states")
+	public String state(Model model) throws SQLException {
+		StateAPI stateAPI = new StateAPI();
+    	ArrayList<State> states = stateAPI.get_states();
+    	model.addAttribute("states", states);
+		return "states";
+	}
+
+	@GetMapping("/addstate")
+	public String addstate(Model model) throws SQLException {
+    	model.addAttribute("state", new State());
+		return "input_state";
+	}
+
+	@PostMapping("/addstate")
+	public String displayState(@ModelAttribute State state,Model model) throws SQLException {
+    	model.addAttribute("typevehicle", state);
+		StateAPI stateAPI = new StateAPI();
+		stateAPI.addState(state);
+		return "display_state";
+	}
+
+	@GetMapping("/state/{id}")
+	public String editstate(@PathVariable int id, Model model) throws SQLException{
+		String strId = Integer.toString(id);
+		StateAPI stateAPI = new StateAPI();
+		State currentState = stateAPI.getState(strId);
+
+		model.addAttribute("state",currentState);
+		return "edit_state";
+	}
+
+	@PostMapping("/state/{id}")
+	public String saveState(@PathVariable int id,@ModelAttribute State state,Model model) throws SQLException {
+		String strId = Integer.toString(id);
+    	model.addAttribute("state", state);
+		StateAPI stateAPI = new StateAPI();
+		state.setId(strId);
+		stateAPI.save(state);
+		return "edited_state";
+	}
+
+	@PostMapping("/deletestate")
+	public String delete_state(@RequestParam("statesChecked") ArrayList<String> stateChecked) throws SQLException {
+		StateAPI stateAPI = new StateAPI();
+		for (String id : stateChecked) {
+			stateAPI.deleteState(id);
+		}
+		
+		return "deletestate";
+	}
+
+
+    @GetMapping("/customer")
+	public String customers(Model model) throws SQLException {
+    	UserAPI userAPI = new UserAPI();
+    	ArrayList<User> users = userAPI.get_users();
+    	model.addAttribute("users", users);
+		return "customer";
+	}
+
+    @GetMapping("/customer/{id}")
+	public String buyPizza(@PathVariable int id,Model model) throws SQLException {
+		PizzaAPI pizzaAPI = new PizzaAPI();
+    	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
+    	model.addAttribute("pizzas", pizzas);
+		return "buy_pizzas";
+	}
 }
