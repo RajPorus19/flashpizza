@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Getting Started: Serving Web Content</title> 
+    <title>Staff - user</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<button>
-    <a th:href="@{/adduser}">Add user</a>
-</button>
+<button onclick="window.location.href='/'">Go back</button>
+<br>
+<br>
+<button onclick="window.location.href='/adduser'">Add a new user</button>
 <body>
     <p> This is the list of all the users </p>
     <form action="#" th:action="@{/deleteusers}" th:object="${users}" method="post">

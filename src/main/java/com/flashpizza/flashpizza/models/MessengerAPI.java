@@ -15,22 +15,22 @@ public class MessengerAPI{
 	private ArrayList<Messenger> messengers_list;
 	
 	public MessengerAPI() throws SQLException {
-		this.messengers_list = get_messngers();
+		this.messengers_list = get_messengers();
 	}
 
 
 	
-	public ArrayList<Messenger> get_messngers() throws SQLException {
+	public ArrayList<Messenger> get_messengers() throws SQLException {
 		
-    	ResultSet res = db.query_db("select * from order");
+    	ResultSet res = db.query_db("select * from messenger");
     	ArrayList<Messenger> messengers_list = new ArrayList<>();
     	if(res != null) {
         	while(res.next()) {
 				String id = Integer.toString(res.getInt("id"));
     			String state_id = res.getString("state_id");
-    			String vehicule_id = res.getString("vehicule_id");
+    			String vehicule_id = res.getString("vehicle_id");
     			String name = res.getString("name");
-    			String phone_number = res.getString("phone_nummber");
+    			String phone_number = res.getString("phone_number");
 
 				Messenger messenger = new Messenger(id,state_id,vehicule_id,name,phone_number);
     			messengers_list.add(messenger);
@@ -41,10 +41,14 @@ public class MessengerAPI{
 	}
 
 	public void addMessenger(Messenger messenger) throws SQLException{
-		db.update_db("INSERT INTO user (name,state_id,vehicule_id,phone_number) VALUES (\""+messenger.getName()+"\",'"
-		+ messenger.getState_id()+"','"
-		+ messenger.getVehicule_id()+"','"
-		+messenger.getPhone_number()+"')");
+		String vehiculeId = "null";
+		String sql = "INSERT INTO messenger (name,vehicle_id,phone_number) VALUES (\""+messenger.getName()+"\","
+		+ vehiculeId +",'"
+		+messenger.getPhone_number()+"')";
+
+		System.out.print(sql);
+
+		db.update_db(sql);
 	}
 	public void deletemessenger(String id){
 		db.update_db("DELETE from messenger WHERE id="+id);

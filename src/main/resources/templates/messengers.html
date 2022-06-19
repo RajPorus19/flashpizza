@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Staff - messenger</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<button>
+    <a th:href="@{/addmessenger}">Add new messenger</a>
+</button>
+<body>
+    <p> This is the list of all the messengers</p>
+    <form action="#" th:action="@{/deletemessengers}" th:object="${messengers}" method="post">
+    <th:block th:each="messenger: ${messengers}">
+        <div>
+            <input type="checkbox" th:id="${messenger.getId()}" th:name="messengersChecked" th:value="${messenger.getId()}">
+            <label th:for="${messenger.getName()}" th:text="${messenger.getName()}"></label>
+            <a th:href="@{'/messengeredit/' + ${messenger.getId()}}">edit</a>
+        </div>
+     </th:block>
+     <p><input type="submit" value="Delete messengers" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

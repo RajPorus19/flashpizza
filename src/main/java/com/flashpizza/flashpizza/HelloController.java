@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.flashpizza.flashpizza.models.Ingredient;
 import com.flashpizza.flashpizza.models.IngredientAPI;
+import com.flashpizza.flashpizza.models.Messenger;
+import com.flashpizza.flashpizza.models.MessengerAPI;
 import com.flashpizza.flashpizza.models.Pizza;
 import com.flashpizza.flashpizza.models.PizzaAPI;
 import com.flashpizza.flashpizza.models.PizzaIngredient;
@@ -185,6 +187,28 @@ public class HelloController {
     	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
     	model.addAttribute("pizzas", pizzas);
 		return "pizzas";
+	}
+
+    @GetMapping("/messengers")
+	public String messengers(Model model) throws SQLException {
+		MessengerAPI messengerAPI = new MessengerAPI();
+    	ArrayList<Messenger> messengers = messengerAPI.get_messengers();
+    	model.addAttribute("messengers", messengers);
+		return "messengers";
+	}
+
+	@GetMapping("/addmessenger")
+	public String addMessenger(Model model) throws SQLException {
+    	model.addAttribute("messenger", new Messenger());
+		return "input_messenger";
+	}
+
+	@PostMapping("/addmessenger")
+	public String displayMessenger(@ModelAttribute Messenger messenger,Model model) throws SQLException {
+    	model.addAttribute("messenger", messenger);
+		MessengerAPI messengerAPI = new MessengerAPI();
+		messengerAPI.addMessenger(messenger);
+		return "display_messenger";
 	}
 
 }

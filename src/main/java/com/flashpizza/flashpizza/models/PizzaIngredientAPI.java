@@ -40,7 +40,6 @@ public class PizzaIngredientAPI{
 		+ pizzaIngredient.getId_ingredient()+") " 
 		+ "ON DUPLICATE KEY UPDATE pizza_id="+pizzaIngredient.getId_pizza()+
 		", ingredient_id="+pizzaIngredient.getId_ingredient();
-		System.out.println(sql);
 		db.update_db(sql);
 	}
 	public void deletepizzaIngredient(String pizzaId, String ingredientId){

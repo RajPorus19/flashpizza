@@ -38,7 +38,7 @@ public class IngredientAPI {
 	}
 
 	public Ingredient getIngredient(String id) throws SQLException{
-		ResultSet res = db.query_db("select * from user where id="+id);
+		ResultSet res = db.query_db("select * from ingredient where id="+id);
 		while(res.next()) {
 			String name = res.getString("name");
 		
@@ -55,7 +55,7 @@ public class IngredientAPI {
 
 	public void save(Ingredient ingredient) throws SQLException{
 		String sql = "UPDATE ingredient SET ";
-		sql += "username = '" + ingredient.getName() + "\" ";
+		sql += "name = \"" + ingredient.getName() + "\" ";
 		sql += "WHERE id=" + ingredient.getId();
 		db.update_db(sql);
 	}

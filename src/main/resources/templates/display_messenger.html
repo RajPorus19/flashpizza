@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Staff added messenger</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p> Created new messenger: </p>
+    <p th:text="'username : ' + ${messenger.getName()}" />
+</body>
+<button>
+
+    <a th:href="@{/messengers}">Continue</a>
+</button>
+</html>
