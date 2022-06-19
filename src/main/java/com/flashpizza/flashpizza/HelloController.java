@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.flashpizza.flashpizza.models.Ingredient;
 import com.flashpizza.flashpizza.models.IngredientAPI;
+import com.flashpizza.flashpizza.models.Pizza;
+import com.flashpizza.flashpizza.models.PizzaAPI;
 import com.flashpizza.flashpizza.models.User;
 import com.flashpizza.flashpizza.models.UserAPI;
 
@@ -76,7 +78,6 @@ public class HelloController {
 		String strId = Integer.toString(id);
 		UserAPI userAPI = new UserAPI();
 		User currentUser = userAPI.getUser(strId);
-		System.out.println("CURRENT USER NAME IS THIS SHIT :"+currentUser.getId());
 
 		model.addAttribute("user",currentUser);
 		return "edit_user";
@@ -91,15 +92,6 @@ public class HelloController {
 		return "edited_user";
 	}
 
-    @GetMapping("/about")
-	public String about() {
-		return "about page";
-	}
-    @GetMapping("/test")
-	public String test() {
-		return "test page";
-	}
-
     @GetMapping("/ingredients")
 	public String ingredients(Model model) throws SQLException {
     	IngredientAPI ingredientAPI = new IngredientAPI();
@@ -108,4 +100,55 @@ public class HelloController {
 		return "ingredients";
 	}
 
+	@GetMapping("/addingredient")
+	public String addIngredient(Model model) throws SQLException {
+    	model.addAttribute("ingredient", new Ingredient());
+		return "input_ingredient";
+	}
+
+	@PostMapping("/addingredient")
+	public String displayIngredient(@ModelAttribute Ingredient ingredient,Model model) throws SQLException {
+    	model.addAttribute("ingredient", ingredient);
+		IngredientAPI ingredientAPI = new IngredientAPI();
+		ingredientAPI.addIngredient(ingredient) ;
+		return "display_ingredient";
+	}
+
+	@PostMapping("/deleteingredients")
+	public String delete_ingredient(@RequestParam("ingredientsChecked") ArrayList<String> ingredientsChecked) throws SQLException {
+		IngredientAPI ingredientAPI = new IngredientAPI();
+		for (String id : ingredientsChecked) {
+			ingredientAPI.deleteIngredient(id);
+		}
+		
+		return "deleteingredients";
+	}
+
+	// TODO
+	@GetMapping("/ingredientedit/{id}")
+	public String editIngredient(@PathVariable int id, Model model) throws SQLException{
+		String strId = Integer.toString(id);
+		IngredientAPI ingredientAPI = new IngredientAPI();
+		Ingredient currentIngredient = ingredientAPI.getIngredient(strId);
+
+		model.addAttribute("ingredient",currentIngredient);
+		return "edit_ingredient";
+	}
+	@PostMapping("/ingredientedited/{id}")
+	public String saveIngredient(@PathVariable int id,@ModelAttribute Ingredient ingredient,Model model) throws SQLException {
+		String strId = Integer.toString(id);
+    	model.addAttribute("ingredient", ingredient);
+		IngredientAPI ingredientAPI = new IngredientAPI();
+		ingredient.setId(strId);
+		ingredientAPI.save(ingredient);
+		return "edited_ingredient";
+	}
+
+    @GetMapping("/pizzas")
+	public String pizzas(Model model) throws SQLException {
+		PizzaAPI pizzaAPI = new PizzaAPI();
+    	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
+    	model.addAttribute("pizzas", pizzas);
+		return "pizzas";
+	}
 }

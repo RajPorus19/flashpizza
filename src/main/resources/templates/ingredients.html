@@ -12,7 +12,7 @@
     <form action="#" th:action="@{/deleteingredients}" th:object="${ingredient}" method="post">
     <th:block th:each="ingredient : ${ingredients}">
         <div>
-            <input type="checkbox" th:id="${ingredient.getId()}" th:name="ingredientChecked" th:value="${ingredient.getId()}">
+            <input type="checkbox" th:id="${ingredient.getId()}" th:name="ingredientsChecked" th:value="${ingredient.getId()}">
             <label th:for="${ingredient.getName()}" th:text="${ingredient.getName()}"></label>
             <a th:href="@{'/ingredientedit/' + ${ingredient.getId()}}">edit</a>
         </div>

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<button>
+    <a th:href="@{/addpizza}">Add pizzas</a>
+</button>
+<body>
+    <p> This is the list of all the pizzas </p>
+    <form action="#" th:action="@{/deletepizzas}" th:object="${pizzas}" method="post">
+    <th:block th:each="pizza: ${pizzas}">
+        <div>
+            <input type="checkbox" th:id="${pizza.getId()}" th:name="pizzasChecked" th:value="${pizza.getId()}">
+            <label th:for="${pizza.getName()}" th:text="${pizza.getName()}"></label>
+            <a th:href="@{'/pizzaedit/' + ${pizza.getId()}}">edit</a>
+        </div>
+     </th:block>
+     <p><input type="submit" value="Delete pizzas" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

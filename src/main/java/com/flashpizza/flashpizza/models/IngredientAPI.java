@@ -37,4 +37,31 @@ public class IngredientAPI {
 		return ingredient_list;
 	}
 
+	public Ingredient getIngredient(String id) throws SQLException{
+		ResultSet res = db.query_db("select * from user where id="+id);
+		while(res.next()) {
+			String name = res.getString("name");
+		
+			Ingredient ingredient= new Ingredient(id,name);
+			return ingredient;
+		}
+		return null;
+	}
+
+	public void addIngredient(Ingredient ingredient) throws SQLException{
+		db.update_db("INSERT INTO ingredient (name) VALUES (\""+ingredient.getName()+"\")");
+	}
+
+
+	public void save(Ingredient ingredient) throws SQLException{
+		String sql = "UPDATE ingredient SET ";
+		sql += "username = '" + ingredient.getName() + "\" ";
+		sql += "WHERE id=" + ingredient.getId();
+		db.update_db(sql);
+	}
+
+    public void deleteIngredient(String id) {
+		db.update_db("DELETE from ingredient WHERE id="+id);
+    }
+
 }
