@@ -15,6 +15,7 @@
             <input type="checkbox" th:id="${pizza.getId()}" th:name="pizzasChecked" th:value="${pizza.getId()}">
             <label th:for="${pizza.getName()}" th:text="${pizza.getName()}"></label>
             <a th:href="@{'/pizzaedit/' + ${pizza.getId()}}">edit</a>
+            <a th:href="@{'/pizzas/' + ${pizza.getId()} + '/ingredients'}">ingredients</a>
         </div>
      </th:block>
      <p><input type="submit" value="Delete pizzas" /> <input type="reset" value="Reset" /></p>

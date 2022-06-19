@@ -151,4 +151,15 @@ public class HelloController {
     	model.addAttribute("pizzas", pizzas);
 		return "pizzas";
 	}
+    @GetMapping("/pizzas/{id}/ingredients")
+	public String pizzasIngredients(@PathVariable int id,Model model) throws SQLException {
+		String strId = Integer.toString(id);
+    	IngredientAPI ingredientAPI = new IngredientAPI();
+    	PizzaAPI pizzaAPI = new PizzaAPI();
+		Pizza pizza = pizzaAPI.getPizza(strId);
+    	ArrayList<Ingredient> ingredients = ingredientAPI.get_ingredients();
+    	model.addAttribute("ingredients", ingredients);
+    	model.addAttribute("pizza", pizza);
+		return "pizzaIngredients";
+	}
 }

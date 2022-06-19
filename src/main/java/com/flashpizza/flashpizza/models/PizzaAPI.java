@@ -12,10 +12,9 @@ import com.flashpizza.flashpizza.Database;
 public class PizzaAPI{
 	
 	Database db = new Database();
-	private ArrayList<Pizza> pizzas_list;
+	
 	
 	public PizzaAPI() throws SQLException {
-		this.pizzas_list = get_pizzas();
 	}
 
 
