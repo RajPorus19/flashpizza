@@ -10,7 +10,7 @@
 </button>
 <body>
     <p th:text="'This is the list of all the ingredients for ' + ${pizza.getName()}"> </p>
-    <form action="#" th:action="@{/deleteingredients}" th:object="${ingredient}" method="post">
+    <form action="#" th:action="@{@{'/updatepizzaingredient/' + ${pizza.getId()}}}" th:object="${ingredient}" method="post">
     <th:block th:each="ingredient : ${ingredients}">
         <div>
             <input type="checkbox" th:id="${ingredient.getId()}" th:name="ingredientsChecked" th:value="${ingredient.getId()}" th:checked="${ingredient.isInPizza(pizza.getId())} ? 'checked'">

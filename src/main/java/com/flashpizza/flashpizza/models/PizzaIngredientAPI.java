@@ -36,11 +36,15 @@ public class PizzaIngredientAPI{
 	}
 
 	public void addPizzaIngredient(PizzaIngredient pizzaIngredient) throws SQLException{
-		db.update_db("INSERT INTO pizza_ingredient (pizza_id,ingrdient_id) VALUES (\""+pizzaIngredient.getId_pizza()+"\",'"
-		+ pizzaIngredient.getId_ingredient()+"\"");
+		String sql = "INSERT INTO pizza_ingredient (pizza_id,ingredient_id) VALUES ("+pizzaIngredient.getId_pizza()+","
+		+ pizzaIngredient.getId_ingredient()+") " 
+		+ "ON DUPLICATE KEY UPDATE pizza_id="+pizzaIngredient.getId_pizza()+
+		", ingredient_id="+pizzaIngredient.getId_ingredient();
+		System.out.println(sql);
+		db.update_db(sql);
 	}
-	public void deletepizzaIngredient(String id){
-		db.update_db("DELETE from pizza_ingredient WHERE id="+id);
+	public void deletepizzaIngredient(String pizzaId, String ingredientId){
+		db.update_db("DELETE from pizza_ingredient WHERE pizza_id="+pizzaId+" and ingredient_id="+ingredientId);
 	}
 	public PizzaIngredient getPizzaIngredient(String id) throws SQLException{
 		ResultSet res = db.query_db("select * from pizza_ingredient where id="+id);
@@ -53,6 +57,7 @@ public class PizzaIngredientAPI{
 		}
 		return null;
 	}
+
 
 	public void save(PizzaIngredient pizzaIngredient) throws SQLException{
 		String sql = "UPDATE pizza SET ";

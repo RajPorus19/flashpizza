@@ -18,6 +18,8 @@ import com.flashpizza.flashpizza.models.Ingredient;
 import com.flashpizza.flashpizza.models.IngredientAPI;
 import com.flashpizza.flashpizza.models.Pizza;
 import com.flashpizza.flashpizza.models.PizzaAPI;
+import com.flashpizza.flashpizza.models.PizzaIngredient;
+import com.flashpizza.flashpizza.models.PizzaIngredientAPI;
 import com.flashpizza.flashpizza.models.User;
 import com.flashpizza.flashpizza.models.UserAPI;
 
@@ -162,4 +164,27 @@ public class HelloController {
     	model.addAttribute("pizza", pizza);
 		return "pizzaIngredients";
 	}
+	@PostMapping("/updatepizzaingredient/{id}")
+	public String delete_pizzaIngredients(@PathVariable int id,@RequestParam("ingredientsChecked") ArrayList<String> ingredientsChecked, Model model) throws SQLException {
+		String strIdPizza = Integer.toString(id);
+		PizzaIngredientAPI pizzaIngredientAPI = new PizzaIngredientAPI();
+		for (String idIngredient : ingredientsChecked) {
+			PizzaIngredient pizzaIngredient = new PizzaIngredient();
+			pizzaIngredient.setId_ingredient(idIngredient);
+			pizzaIngredient.setId_pizza(strIdPizza);
+			pizzaIngredientAPI.addPizzaIngredient(pizzaIngredient);
+		}
+		ArrayList<PizzaIngredient> allPizzaIngredients = pizzaIngredientAPI.get_pizzaIngredients(strIdPizza);
+		for (PizzaIngredient pizzaIngredient : allPizzaIngredients) {
+			if(!ingredientsChecked.contains(pizzaIngredient.getId_ingredient())){
+				pizzaIngredientAPI.deletepizzaIngredient(strIdPizza, pizzaIngredient.getId_ingredient());
+			}
+		}
+
+		PizzaAPI pizzaAPI = new PizzaAPI();
+    	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
+    	model.addAttribute("pizzas", pizzas);
+		return "pizzas";
+	}
+
 }
