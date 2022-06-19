@@ -39,7 +39,7 @@ INSERT INTO `pizza_size` (`id`, `name`, `coefficient`) VALUES
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `phone_number`, `email`, `password`, `create_time`, `balance`) VALUES
+INSERT INTO `user` (`id`, `firstname`, `phone_number`, `email`, `password`, `create_time`, `balance`) VALUES
 (1, 'Antonin', '+33641941449', 'anto@gmail.com', 'pwd', '2022-06-10 12:43:08', '48.00');
 
 --
@@ -63,23 +63,23 @@ INSERT INTO `pizza` (`id`, `name`, `price`) VALUES
 -- Déchargement des données de la table `pizza_ingredient`
 --
 
-INSERT INTO `pizza_ingredient` (`id`, `pizza_id`, `ingredient_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 2, 1),
-(6, 2, 2),
-(7, 2, 3),
-(8, 2, 5),
-(9, 2, 6),
-(10, 3, 1),
-(11, 3, 2),
-(12, 3, 3),
-(13, 3, 4),
-(14, 3, 5),
-(15, 3, 7),
-(16, 3, 8);
+INSERT INTO `pizza_ingredient` (`pizza_id`, `ingredient_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 5),
+(2, 6),
+(3, 1),
+(3, 2),
+(3, 3),
+(3, 4),
+(3, 5),
+(3, 7),
+(3, 8);
 
 --
 -- Déchargement des données de la table `messenger`
