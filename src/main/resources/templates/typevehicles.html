@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Staff - type vehicle</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<button onclick="window.location.href='/'">Go back</button>
+<br>
+<br>
+<button onclick="window.location.href='/addtypevehicle'">Add a new vehicle type</button>
+<body>
+    <p> This is the list of all the vehicles</p>
+    <form action="#" th:action="@{/deletetypevehicles}" th:object="${typevehicles}" method="post">
+    <th:block th:each="typevehicle: ${typevehicles}">
+        <div>
+            <input type="checkbox" th:id="${typevehicle.getId()}" th:name="typevehiclesChecked" th:value="${typevehicle.getId()}">
+            <label th:for="${typevehicle.getName()}" th:text="${typevehicle.getName()}"></label>
+            <a th:href="@{'/typevehicle/' + ${typevehicle.getId()}}">edit</a>
+        </div>
+     </th:block>
+     <p><input type="submit" value="Delete vehicle types" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

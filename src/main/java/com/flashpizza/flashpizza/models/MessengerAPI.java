@@ -69,8 +69,8 @@ public class MessengerAPI{
 	public void save(Messenger messenger) throws SQLException{
 		String sql = "UPDATE messenger SET ";
 		sql += "name = '" + messenger.getName() + "',";
-		sql += "state_id = '" + messenger.getState_id() + "' ";
-		sql += "vehicule_id = '" + messenger.getVehicule_id() + "' ";
+		sql += "state_id = " + messenger.getState_id() + " ";
+		sql += "vehicle_id = " + messenger.getVehicule_id() + " ";
 		sql += "phone_number = '" + messenger.getPhone_number() + "' ";
 		sql += "WHERE id=" + messenger.getId();
 		db.update_db(sql);

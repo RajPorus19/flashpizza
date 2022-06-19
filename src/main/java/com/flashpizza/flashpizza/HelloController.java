@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.ibatis.type.TypeException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,12 @@ import com.flashpizza.flashpizza.models.Pizza;
 import com.flashpizza.flashpizza.models.PizzaAPI;
 import com.flashpizza.flashpizza.models.PizzaIngredient;
 import com.flashpizza.flashpizza.models.PizzaIngredientAPI;
+import com.flashpizza.flashpizza.models.TypeVehicle;
+import com.flashpizza.flashpizza.models.TypeVehicleAPI;
 import com.flashpizza.flashpizza.models.User;
 import com.flashpizza.flashpizza.models.UserAPI;
+import com.flashpizza.flashpizza.models.Vehicle;
+import com.flashpizza.flashpizza.models.VehicleAPI;
 
 @Controller
 public class HelloController {
@@ -209,6 +214,66 @@ public class HelloController {
 		MessengerAPI messengerAPI = new MessengerAPI();
 		messengerAPI.addMessenger(messenger);
 		return "display_messenger";
+	}
+
+    @GetMapping("/vehicles")
+	public String vehicles(Model model) throws SQLException {
+		VehicleAPI vehicleAPI = new VehicleAPI();
+    	ArrayList<Vehicle> vehicles = vehicleAPI.get_vehicles();
+    	model.addAttribute("vehicles", vehicles);
+		return "vehicles";
+	}
+
+    @GetMapping("/typevehicles")
+	public String typevehicles(Model model) throws SQLException {
+		TypeVehicleAPI typeVehicleAPI = new TypeVehicleAPI();
+    	ArrayList<TypeVehicle> typevehicles = typeVehicleAPI.get_typeVehicles();
+    	model.addAttribute("typevehicles", typevehicles);
+		return "typevehicles";
+	}
+
+	@GetMapping("/addtypevehicle")
+	public String addTypeVehicle(Model model) throws SQLException {
+    	model.addAttribute("typevehicle", new TypeVehicle());
+		return "input_typevehicle";
+	}
+
+	@PostMapping("/addtypevehicle")
+	public String displayTypeVehicle(@ModelAttribute TypeVehicle typeVehicle,Model model) throws SQLException {
+    	model.addAttribute("typevehicle", typeVehicle);
+		TypeVehicleAPI typeVehicleAPI = new TypeVehicleAPI();
+		typeVehicleAPI.addVehicleType(typeVehicle) ;
+		return "display_typevehicle";
+	}
+
+	@PostMapping("/deletetypevehicles")
+	public String delete_typevehicle(@RequestParam("typevehiclesChecked") ArrayList<String> typevehiclesChecked) throws SQLException {
+		TypeVehicleAPI typevehicleAPI = new TypeVehicleAPI();
+		for (String id : typevehiclesChecked) {
+			typevehicleAPI.deletetypevehicle(id);
+		}
+		
+		return "deletetypevehicle";
+	}
+
+	@GetMapping("/typevehicle/{id}")
+	public String edittypevehicle(@PathVariable int id, Model model) throws SQLException{
+		String strId = Integer.toString(id);
+		TypeVehicleAPI typevehicleAPI = new TypeVehicleAPI();
+		TypeVehicle currentvehicletype = typevehicleAPI.getTypeVehicle(strId);
+
+		model.addAttribute("typevehicle",currentvehicletype);
+		return "edit_typevehicle";
+	}
+
+	@PostMapping("/typevehicle/{id}")
+	public String saveTypeVehicle(@PathVariable int id,@ModelAttribute TypeVehicle typevehicle,Model model) throws SQLException {
+		String strId = Integer.toString(id);
+    	model.addAttribute("typevehicle", typevehicle);
+		TypeVehicleAPI typevehicleAPI = new TypeVehicleAPI();
+		typevehicle.setId(strId);
+		typevehicleAPI.save(typevehicle);
+		return "edited_typevehicle";
 	}
 
 }

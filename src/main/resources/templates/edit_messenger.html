@@ -11,6 +11,12 @@
         <p>password: <input type="password" th:field="*{password}" /></p>
         <p>phone number: <input type="text" th:field="*{phone_number}" /></p>
         <p>email: <input type="text" th:field="*{email}" /></p>
+        <!--
+            <select class="form-control" th:field="${operator.opeId}"  id="dropOperator">
+                <option value="0">select operator</option>
+                <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.operatorName}"></option>
+            </select>
+        -->
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
