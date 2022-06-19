@@ -110,7 +110,11 @@ INSERT INTO `pizza_ingredient` (`pizza_id`, `ingredient_id`) VALUES
 -- Déchargement des données de la table `messenger`
 --
 INSERT INTO `messenger` (`state_id`, `vehicle_id`, `name`, `phone_number`) VALUES
-(2, NULL, 'Jean Pierre', '+33611223344');
+(2, NULL, 'Jean Pierre', '+33611223344'),
+(2, NULL, 'Arnaud', '+33611251344'),
+(1, NULL, 'Mehdi', '+33695371344'),
+(1, NULL, 'Mamadou', '+3361612374'),
+(2, NULL, 'Rick', '+3361612361');
 --
 -- Déchargement des données de la table `order_state`
 --
