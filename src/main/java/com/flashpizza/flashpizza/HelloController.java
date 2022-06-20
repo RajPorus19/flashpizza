@@ -1,19 +1,14 @@
 package com.flashpizza.flashpizza;
 
-import java.io.Console;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.ibatis.type.TypeException;
-import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.flashpizza.flashpizza.models.Ingredient;
@@ -371,12 +366,12 @@ public class HelloController {
 	}
 
 
-    @GetMapping("/customer")
+    @GetMapping("/customers")
 	public String customers(Model model) throws SQLException {
     	UserAPI userAPI = new UserAPI();
     	ArrayList<User> users = userAPI.get_users();
     	model.addAttribute("users", users);
-		return "customer";
+		return "customers";
 	}
 
     @GetMapping("/customer/{id}")
