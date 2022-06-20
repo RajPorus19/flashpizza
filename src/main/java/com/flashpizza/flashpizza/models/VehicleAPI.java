@@ -33,7 +33,7 @@ public class VehicleAPI{
 
 
 				Vehicle vehicle = new Vehicle(id,state_id,type_id,matriculation);
-				vehicle_list.add(vehicle);
+				vehicles_list.add(vehicle);
     		}
     	}
 
