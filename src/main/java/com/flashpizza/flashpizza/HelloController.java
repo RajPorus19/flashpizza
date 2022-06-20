@@ -455,17 +455,16 @@ public class HelloController {
 	}
 
     @PostMapping("/customer/{user_id}/buypizza/{order_id}/order/{pizza_id}")
-	public String PostorderPizza(@PathVariable int user_id, @PathVariable int pizza_id, @PathVariable int order_id, Model model, @ModelAttribute OrderLine orderLine) throws SQLException{
+	public String PostorderPizza(@PathVariable int user_id, @PathVariable int pizza_id, @PathVariable int order_id, Model model, @ModelAttribute OrderLine orderline) throws SQLException{
     	UserAPI userAPI = new UserAPI();
 		String userId = Integer.toString(user_id);
 		String orderId= Integer.toString(order_id);
 		//String orderId = userAPI.get_current_order_id(userId);
 		String pizzaId= Integer.toString(pizza_id);
-		OrderLine orderline = new OrderLine();
 		orderline.setPizza_id(pizzaId);
+		orderline.setSize_id("1");
 		userAPI.addOrderLine(userId, orderId, orderline);
 		//orderline.setOrder_id(orderId);
-		orderline.setSize_id("1");
     	model.addAttribute("orderline", orderline);
     	model.addAttribute("userId", userId);
     	model.addAttribute("pizzaId", pizzaId);
