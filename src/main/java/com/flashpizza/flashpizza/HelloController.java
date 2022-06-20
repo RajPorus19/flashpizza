@@ -51,6 +51,8 @@ public class HelloController {
 		UserAPI userAPI = new UserAPI();
 		ArrayList<User> users = userAPI.get_users();
 		model.addAttribute("users", users);
+		String revenue = userAPI.get_revenue();
+		model.addAttribute("revenue", revenue);
 		return "staff";
 	}
 	

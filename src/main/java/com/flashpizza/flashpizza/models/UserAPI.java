@@ -110,4 +110,16 @@ public class UserAPI {
 		System.out.print(sql);
 		db.update_db(sql);
 	}
+
+	public String get_revenue() throws SQLException{
+		String  sql = "select revenue from revenue";
+		ResultSet res = db.query_db(sql);
+		while(res.next()) {
+			Double rev = res.getDouble("revenue");
+			String  revenue = Double.toString(rev);
+			return revenue;
+		}
+		return null;
+
+	}
 }
