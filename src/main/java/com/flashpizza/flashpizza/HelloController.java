@@ -419,7 +419,8 @@ public class HelloController {
     @GetMapping("/customer/{id}")
 	public String customer(@PathVariable int id,Model model) throws SQLException {
 		String customerId = Integer.toString(id);
-		User user = new User();
+		UserAPI userAPI = new UserAPI();
+		User user = userAPI.getUser(Integer.toString(id));
 		user.setId(customerId);
 		model.addAttribute("user", user);
 		return "customer";
