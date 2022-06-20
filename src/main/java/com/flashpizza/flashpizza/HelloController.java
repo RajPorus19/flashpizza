@@ -52,7 +52,13 @@ public class HelloController {
 		ArrayList<User> users = userAPI.get_users();
 		model.addAttribute("users", users);
 		String revenue = userAPI.get_revenue();
+		String avg = userAPI.getAvgPrice();
+		String bestClients = userAPI.bestClients();
+		String expclients = userAPI.customerExp();
+		model.addAttribute("avg", avg);
 		model.addAttribute("revenue", revenue);
+		model.addAttribute("bestclients", bestClients);
+		model.addAttribute("expclients", expclients);
 		return "staff";
 	}
 	

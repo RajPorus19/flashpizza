@@ -114,12 +114,65 @@ public class UserAPI {
 	public String get_revenue() throws SQLException{
 		String  sql = "select revenue from revenue";
 		ResultSet res = db.query_db(sql);
+		if(res==null) return null;
 		while(res.next()) {
 			Double rev = res.getDouble("revenue");
 			String  revenue = Double.toString(rev);
 			return revenue;
 		}
 		return null;
+	}
 
+	public String getAvgPrice() throws SQLException{
+		String sql = """
+			SELECT AVG(o.price) as \"Moyenne des commandes\"
+			FROM flashpizza.order o
+			SELECT AVG(o.price) as \"avg_order\"
+			FROM flashpizza.order o
+				""";
+		ResultSet res = db.query_db(sql);
+		if(res==null) return null;
+		while(res.next()) {
+			Double rev = res.getDouble("Moyenne des commandes");
+			String  revenue = Double.toString(rev);
+			return revenue;
+		}
+		return null;
+	}
+
+	public String bestClients() throws SQLException{
+		String sql = """
+			SELECT u.firstname as \"firstname\", COUNT(*) as \"no_order\", SUM(o.price) as \"total_price\"
+			FROM flashpizza.order o
+			JOIN flashpizza.user u on u.id = o.user_id
+			GROUP BY o.user_id
+			HAVING SUM(o.price) > 
+			(SELECT AVG(o.price) as \"Moyenne des commandes\"
+			FROM flashpizza.order o);
+				""";
+		ResultSet res = db.query_db(sql);
+		if(res==null) return null;
+		String  revenue = "";
+		while(res.next()) {
+			String rev = res.getString("firstname");
+			revenue += rev + "; ";
+		}
+		return revenue;
+	}
+
+	public String  customerExp() throws SQLException{
+		String sql = """
+			SELECT *
+FROM customer_expanses as c
+WHERE c.expanses = (SELECT Max(expanses) FROM customer_expanses)	
+				""";
+		ResultSet res = db.query_db(sql);
+		if(res==null) return null;
+		String  revenue = "";
+		while(res.next()) {
+			String rev = res.getString("firstname");
+			revenue += rev + "; ";
+		}
+		return revenue;
 	}
 }
