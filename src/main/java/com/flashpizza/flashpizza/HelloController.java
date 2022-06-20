@@ -16,6 +16,7 @@ import com.flashpizza.flashpizza.models.IngredientAPI;
 import com.flashpizza.flashpizza.models.Messenger;
 import com.flashpizza.flashpizza.models.MessengerAPI;
 import com.flashpizza.flashpizza.models.Order;
+import com.flashpizza.flashpizza.models.OrderAPI;
 import com.flashpizza.flashpizza.models.OrderLine;
 import com.flashpizza.flashpizza.models.Pizza;
 import com.flashpizza.flashpizza.models.PizzaAPI;
@@ -506,8 +507,10 @@ public class HelloController {
 		String userId = Integer.toString(user_id);
     	UserAPI userAPI = new UserAPI();
 		ArrayList<Order> order_list = userAPI.getOrders(userId);
+		OrderAPI orderAPI = new OrderAPI();
 		model.addAttribute("orders", order_list);
 		model.addAttribute("userId", userId);
+		model.addAttribute("orderAPI", orderAPI);
 		return "list_orders";
 	}
 }
