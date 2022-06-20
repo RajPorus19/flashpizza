@@ -1,68 +1,83 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 USE `flashpizza` ;
-
---
--- Déchargement des données de la table `ingredient`
---
-
-INSERT INTO `ingredient` (`id`, `name`) VALUES
-(1, 'Tomate'),
-(2, 'Mozzarella'),
-(3, 'Champignon'),
-(4, 'Jambon'),
-(5, 'Oignon'),
-(6, 'Poivron'),
-(7, 'Olive'),
-(8, 'Roquette');
 
 --
 -- Déchargement des données de la table `state`
 --
-
-INSERT INTO `state` (`id`, `Name`) VALUES
-(1, 'Non disponible'),
-(2, 'Disponible');
-
+INSERT INTO `state` (`Name`) VALUES
+('Non disponible'),
+('Disponible');
 --
 -- Déchargement des données de la table `pizza_size`
 --
-
-INSERT INTO `pizza_size` (`id`, `name`, `coefficient`) VALUES
-(1, 'Humaine', '1.00'),
-(2, 'Naine', '0.75'),
-(3, 'Ogresse', '1.25');
-
+INSERT INTO `pizza_size` (`name`, `coefficient`) VALUES
+('Humaine', '1.00'),
+('Naine', '0.75'),
+('Ogresse', '1.25');
 --
 -- Déchargement des données de la table `user`
 --
+INSERT INTO `user` (`firstname`, `phone_number`, `email`, `password`) VALUES
+('Antonin', '+33641941449', 'anto@gmail.com', 'pwd'),
+('Raj Porus', '+33699887766', 'raj@gmail.com', 'pwd');
 
-INSERT INTO `user` (`id`, `firstname`, `phone_number`, `email`, `password`, `create_time`, `balance`) VALUES
-(1, 'Antonin', '+33641941449', 'anto@gmail.com', 'pwd', '2022-06-10 12:43:08', '48.00');
+INSERT INTO `transaction` (`user_id`, `amount`) VALUES
+(2, 100),
+(2, 45),
+(1, 15);
 
 --
 -- Déchargement des données de la table `vehicle_type`
 --
+INSERT INTO `vehicle_type` (`name`) VALUES
+('Car'),
+('Motorcycle');
 
-INSERT INTO `vehicle_type` (`id`, `name`) VALUES
-(1, 'Car'),
-(2, 'Motorcycle');
+--
+-- Déchargement des données de la table `vehicle`
+--
+INSERT INTO `vehicle` (`type_id`, `matriculation`) VALUES
+(1, "AB-737-AT"),
+(2, "AA-572-BF"),
+(1, "AC-613-ET"),
+(1, "AA-229-AA");
 
 --
 -- Déchargement des données de la table `pizza`
 --
+INSERT INTO `pizza` (`name`, `price`) VALUES
+('Queen', '15.30'),
+('Végétarienne', '15.00'),
+('Regina', '9.95'),
+('Hawaïenne', '17.30'),
+('4 Fromages', '17.30'),
+('Campagnarde', '17.30');
 
-INSERT INTO `pizza` (`id`, `name`, `price`) VALUES
-(1, 'Reine', '13.00'),
-(2, 'Végétarienne', '15.00'),
-(3, 'Regina', '10.00');
+--
+-- Déchargement des données de la table `ingredient`
+--
+INSERT INTO `ingredient` (`name`) VALUES
+('Sauce Tomate'),
+('Mozzarella'),
+('Champignon'),
+('Jambon'),
+('Oignon'),
+('Poivron'),
+('Olive'),
+('Roquette'),
+('Fromage de chèvre'),
+('Emmental'),
+('Poulet'),
+('Ananas'),
+('Lardon'),
+('Tomate fraîche'),
+('Crème fraiche');
 
 --
 -- Déchargement des données de la table `pizza_ingredient`
 --
-
 INSERT INTO `pizza_ingredient` (`pizza_id`, `ingredient_id`) VALUES
 (1, 1),
 (1, 2),
@@ -79,37 +94,45 @@ INSERT INTO `pizza_ingredient` (`pizza_id`, `ingredient_id`) VALUES
 (3, 4),
 (3, 5),
 (3, 7),
-(3, 8);
-
+(3, 8),
+(4,1),
+(4,2),
+(4,11),
+(4,12),
+(5,1),
+(5,2),
+(5,9),
+(5,10),
+(6,2),
+(6,13),
+(6,15);
 --
 -- Déchargement des données de la table `messenger`
 --
-
-INSERT INTO `messenger` (`id`, `state_id`, `vehicle_id`, `name`, `phone_number`) VALUES
-(1, 2, NULL, 'Boubakar', '+99mabite');
-
+INSERT INTO `messenger` (`state_id`, `vehicle_id`, `name`, `phone_number`) VALUES
+(2, NULL, 'Jean Pierre', '+33611223344'),
+(2, NULL, 'Arnaud', '+33611251344'),
+(1, NULL, 'Mehdi', '+33695371344'),
+(1, NULL, 'Mamadou', '+3361612374'),
+(2, NULL, 'Rick', '+3361612361');
 --
 -- Déchargement des données de la table `order_state`
 --
-
-INSERT INTO `order_state` (`id`, `name`) VALUES
-(1, 'Basket'),
-(2, 'Ordered'),
-(3, 'Cooking'),
-(4, 'Ready'),
-(5, 'Delivering'),
-(6, 'Delivered');
-
+INSERT INTO `order_state` (`name`) VALUES
+('Basket'),
+('Ordered'),
+('Cooking'),
+('Ready'),
+('Delivering'),
+('Delivered');
 --
 -- Déchargement des données de la table `order`
 --
-
-INSERT INTO `order` (`id`, `user_id`, `state_id`, `messenger_id`, `order_date`, `delivery_date`, `price`) VALUES
-(2, 1, 6, 1, '2022-06-13 07:23:57', NULL, '52.00');
-
+INSERT INTO `order` (`user_id`, `state_id`, `messenger_id`) VALUES
+(1, 1, 1);
 --
 -- Déchargement des données de la table `order_line`
 --
-
-INSERT INTO `order_line` (`id`, `order_id`, `pizza_id`, `size_id`, `quantity`, `price`) VALUES
-(1, 2, 1, 1, 4, '52.00');
+INSERT INTO `order_line` (`order_id`, `pizza_id`, `size_id`, `quantity`) VALUES
+(1, 1, 1, 4),
+(1, 2, 2, 1);
