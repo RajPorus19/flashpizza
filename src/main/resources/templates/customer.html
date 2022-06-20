@@ -17,6 +17,6 @@
         <p><input type="submit" value="Submit" /></p>
     </form>
     <br>
-    <label th:for="${user.getBalance()}" th:text="${'Current balance ' + user.getBalance() + ' €'}"></label>
+    <label th:for="${user.getBalance()}" th:text="'Current balance ' + ${user.getBalance()} + ' €'"></label>
 </body>
 </html>
