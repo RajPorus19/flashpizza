@@ -22,17 +22,33 @@ public class PizzaAPI{
 	public ArrayList<Pizza> get_pizzas() throws SQLException {
 		
     	ResultSet res = db.query_db("select * from pizza");
-    	ArrayList<Pizza> pizzas_list = new ArrayList<Pizza>();
-    	if(res != null) {
-        	while(res.next()) {
+		return pizzaArrayList(res);
+	}
+
+	public ArrayList<Pizza> get_best_pizza() throws SQLException {
+
+		ResultSet res = db.query_db("select * from best_pizza");
+		return pizzaArrayList(res);
+	}
+
+	public ArrayList<Pizza> get_worst_pizza() throws SQLException {
+
+		ResultSet res = db.query_db("select * from worst_pizza");
+		return pizzaArrayList(res);
+	}
+
+	private ArrayList<Pizza> pizzaArrayList(ResultSet res) throws SQLException {
+		ArrayList<Pizza> pizzas_list = new ArrayList<Pizza>();
+		if(res != null) {
+			while(res.next()) {
 				String id = Integer.toString(res.getInt("id"));
-    			String name = res.getString("name");
-    			String price = res.getString("price");
+				String name = res.getString("name");
+				String price = res.getString("price");
 
 				Pizza pizza = new Pizza(id,name,price);
-    			pizzas_list.add(pizza);
-    		}
-    	}
+				pizzas_list.add(pizza);
+			}
+		}
 
 		return pizzas_list;
 	}

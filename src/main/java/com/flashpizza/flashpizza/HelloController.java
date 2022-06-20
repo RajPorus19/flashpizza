@@ -162,6 +162,10 @@ public class HelloController {
 		PizzaAPI pizzaAPI = new PizzaAPI();
     	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
     	model.addAttribute("pizzas", pizzas);
+		ArrayList<Pizza> best_pizzas = pizzaAPI.get_best_pizza();
+		model.addAttribute("best_pizzas", best_pizzas);
+		ArrayList<Pizza> worst_pizzas = pizzaAPI.get_worst_pizza();
+		model.addAttribute("worst_pizzas", worst_pizzas);
 		return "pizzas";
 	}
     @GetMapping("/pizzas/{id}/ingredients")

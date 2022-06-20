@@ -18,6 +18,20 @@
             <a th:href="@{'/pizzas/' + ${pizza.getId()} + '/ingredients'}">ingredients</a>
         </div>
      </th:block>
+    <th:block th:each="pizza: ${best_pizzas}">
+        <div>
+            <p> BEST PIZZA </p>
+            <label th:for="${pizza.getName()}" th:text="${pizza.getName()}"></label>
+            <label th:for="${pizza.getPrice()}" th:text="${pizza.getPrice() + ' €'}"></label>
+        </div>
+    </th:block>
+    <th:block th:each="pizza: ${worst_pizzas}">
+        <div>
+            <p> WORST PIZZA </p>
+            <label th:for="${pizza.getName()}" th:text="${pizza.getName()}"></label>
+            <label th:for="${pizza.getPrice()}" th:text="${pizza.getPrice()+ ' €'}"></label>
+        </div>
+    </th:block>
      <p><input type="submit" value="Delete pizzas" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
