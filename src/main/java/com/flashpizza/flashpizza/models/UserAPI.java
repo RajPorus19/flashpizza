@@ -125,15 +125,13 @@ public class UserAPI {
 
 	public String getAvgPrice() throws SQLException{
 		String sql = """
-			SELECT AVG(o.price) as \"Moyenne des commandes\"
-			FROM flashpizza.order o
 			SELECT AVG(o.price) as \"avg_order\"
 			FROM flashpizza.order o
 				""";
 		ResultSet res = db.query_db(sql);
 		if(res==null) return null;
 		while(res.next()) {
-			Double rev = res.getDouble("Moyenne des commandes");
+			Double rev = res.getDouble("avg_order");
 			String  revenue = Double.toString(rev);
 			return revenue;
 		}
