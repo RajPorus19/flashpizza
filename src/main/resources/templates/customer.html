@@ -10,7 +10,7 @@
     <p>Login as :</p>
     <br>
     <th:block th:each="user : ${users}">
-        <a th:href="@{'/customer/' + ${user.getId()}}" th:text="${user.getUsername}"></a>
+        <a th:href="@{'/customer/' + ${user.getId()}}" th:text="${user.getFirstname()}"></a>
         <br>
      </th:block>
     
