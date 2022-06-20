@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Staff added pizza</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p> Created new pizza : </p>
+    <p th:text="'name : ' + ${pizza.getName()}" />
+</body>
+<button>
+
+    <a th:href="@{/pizzas}">Continue</a>
+</button>
+</html>

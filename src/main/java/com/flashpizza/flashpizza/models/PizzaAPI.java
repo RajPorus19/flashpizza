@@ -54,8 +54,8 @@ public class PizzaAPI{
 	}
 
 	public void addPizza(Pizza pizza) throws SQLException{
-		db.update_db("INSERT INTO pizza (name,price) VALUES (\""+pizza.getName()+"\",'"
-		+ pizza.getPrice()+"\"");
+		db.update_db("INSERT INTO pizza (name,price) VALUES (\""+pizza.getName()+"\","
+		+ pizza.getPrice()+")");
 	}
 	public void deletepizza(String id){
 		db.update_db("DELETE from pizza WHERE id="+id);

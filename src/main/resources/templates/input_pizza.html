@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Staff - add pizza </title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p> Add new pizza: </p>
+    <form action="#" th:action="@{/addpizza}" th:object="${pizza}" method="post">
+        <p>name: <input type="text" th:field="*{name}" /></p>
+        <p>price: <input type="text" th:field="*{price}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

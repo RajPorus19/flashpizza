@@ -82,13 +82,6 @@ public class HelloController {
 		userAPI.addUser(user) ;
 		return "display_user";
 	}
-	@PostMapping("/addbalance")
-	public String addBalance(@ModelAttribute User user,Model model) throws SQLException {
-		//model.addAttribute("user", user);
-		UserAPI userAPI = new UserAPI();
-		userAPI.addBalance(user.getId(), user.getBalance());
-		return "customer";
-	}
 
 
 	@GetMapping("/useredit/{id}")
@@ -142,7 +135,6 @@ public class HelloController {
 		return "deleteingredients";
 	}
 
-	// TODO
 	@GetMapping("/ingredientedit/{id}")
 	public String editIngredient(@PathVariable int id, Model model) throws SQLException{
 		String strId = Integer.toString(id);
@@ -173,6 +165,41 @@ public class HelloController {
 		model.addAttribute("worst_pizzas", worst_pizzas);
 		return "pizzas";
 	}
+
+	@GetMapping("/addpizza")
+	public String addPizza(Model model) throws SQLException {
+    	model.addAttribute("pizza", new Pizza());
+		return "input_pizza";
+	}
+
+	@PostMapping("/addpizza")
+	public String displayPizza(@ModelAttribute Pizza pizza,Model model) throws SQLException {
+    	model.addAttribute("pizza", pizza);
+		PizzaAPI pizzaAPI = new PizzaAPI();
+		pizzaAPI.addPizza(pizza) ;
+		return "display_pizza";
+	}
+
+	@GetMapping("/pizzaedit/{id}")
+	public String editPizza(@PathVariable int id, Model model) throws SQLException{
+		String strId = Integer.toString(id);
+		PizzaAPI pizzaAPI = new PizzaAPI();
+		Pizza currentPizza = pizzaAPI.getPizza(strId);
+
+		model.addAttribute("pizza",currentPizza);
+		return "edit_pizza";
+	}
+	@PostMapping("/pizzaedited/{id}")
+	public String savePizza(@PathVariable int id,@ModelAttribute Pizza pizza,Model model) throws SQLException {
+		String strId = Integer.toString(id);
+    	model.addAttribute("pizza", pizza);
+		PizzaAPI pizzaAPI = new PizzaAPI();
+		pizza.setId(strId);
+		pizzaAPI.save(pizza);
+		return "edited_pizza";
+	}
+
+
     @GetMapping("/pizzas/{id}/ingredients")
 	public String pizzasIngredients(@PathVariable int id,Model model) throws SQLException {
 		String strId = Integer.toString(id);
@@ -381,11 +408,19 @@ public class HelloController {
 		return "customers";
 	}
 
+	@PostMapping("/customer/{id}")
+	public String addBalance(@PathVariable int id,@ModelAttribute User user,Model model) throws SQLException {
+		//model.addAttribute("user", user);
+		UserAPI userAPI = new UserAPI();
+		userAPI.addBalance(user.getId(), user.getBalance());
+		return "addbalance";
+	}
+
     @GetMapping("/customer/{id}")
 	public String customer(@PathVariable int id,Model model) throws SQLException {
 		String customerId = Integer.toString(id);
-		UserAPI userAPI = new UserAPI();
-		User user = userAPI.getUser(customerId);
+		User user = new User();
+		user.setId(customerId);
 		model.addAttribute("user", user);
 		return "customer";
 	}

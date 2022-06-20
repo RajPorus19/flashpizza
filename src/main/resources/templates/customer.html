@@ -12,7 +12,7 @@
     <br>
     <button onclick="window.location.href='/'">View orders</button>
     <br>
-    <form action="#" th:action="@{/addbalance}" th:object="${user}" method="post">
+    <form action="#" th:action="@{@{'/customer/' + ${user.getId()}}}" th:object="${user}" method="post">
         <p>amount: <input type="text" th:field="*{balance}" /></p>
         <p><input type="submit" value="Submit" /></p>
     </form>
