@@ -2,6 +2,7 @@ package com.flashpizza.flashpizza.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.flashpizza.flashpizza.Database;
@@ -69,44 +70,54 @@ public class UserAPI {
 		sql += "WHERE id=" + user.getId();
 		db.update_db(sql);
 	}
-	public String get_current_order_id(String userId) throws SQLException{
-		ResultSet res = db.query_db("select * from order where user_id="+userId);
-    	ResultSet tmpForBasket = db.query_db("select id,name from order_state");
-    	ArrayList<User> users_list = new ArrayList<User>();
+	public String unwrapped_get_current_order_id(String userId) throws SQLException{
 		String basketId = "1";
-		Boolean noBasketFound = true;
-    	if(tmpForBasket != null) {
-        	while(tmpForBasket.next()) {
-				String id = Integer.toString(tmpForBasket.getInt("id"));
-				basketId = id;
-    			String name = tmpForBasket.getString("name");
-				if(name.equals("Basket")){
-					noBasketFound = false;
-					break;
-				}
-    		}
-			if(noBasketFound){
-				db.update_db("INSET INTO order_state (name) VALUES ('basket')");
-				return get_current_order_id(userId);
-			}
-    	}
-		else{
-			db.update_db("INSET INTO order_state (name) VALUES ('basket')");
-			return get_current_order_id(userId);
-		}
+		String sql = "select id from order WHERE user_id="+userId+" and state_id="+basketId;
+		System.out.println(sql);
+		ResultSet res = db.query_db(sql);
 		if(res!=null){
         	while(res.next()) {
-				String id = Integer.toString(tmpForBasket.getInt("id"));
-				String state_id= Integer.toString(tmpForBasket.getInt("state_id"));
-				basketId = id;
-				if(state_id.equals(basketId)){
-					return id;
-				}
+				String id = Integer.toString(res.getInt("id"));
+				return id;
 			}
 		}
-
-		String sql = "insert into order (user_id) VALUES (+"+userId+")";
+		return null;
+	}
+	public String get_current_order_id(String userId) throws SQLException{
+		String res = unwrapped_get_current_order_id(userId);
+		if(res == null){
+			Database ndb = new Database();
+			String sql = "insert into order (user_id) VALUES ("+userId+")";
+			System.out.println(sql);
+		}
+		res = unwrapped_get_current_order_id(userId);
+		return res;
+	};
+	public void addOrderline(String userId,String pizza_id, String size_id,String quantity) throws SQLException{
+		String  orderId = get_current_order_id(userId);
+		String sql = "insert into order_line (order_id,pizza_id,size_id,quantity) VALUES ("
+		+ orderId + "," + pizza_id + "," + quantity +")";
+		System.out.print(sql);
 		db.update_db(sql);
-		return get_current_order_id(userId);
+	}
+	public ArrayList<OrderLine> getOrderLines(String userId) throws SQLException{
+		String orderId = get_current_order_id(userId);
+		ResultSet res = db.query_db("select * from order_line where order_id="+orderId);
+		ArrayList<OrderLine> list_order_lines = new ArrayList<OrderLine>();
+    	if(res != null) {
+        	while(res.next()) {
+				String id = Integer.toString(res.getInt("id"));
+				String order_id = Integer.toString(res.getInt("order_id"));
+				String pizza_id= Integer.toString(res.getInt("pizza_id"));
+				String size_id = Integer.toString(res.getInt("size_id"));
+				String quantity= Integer.toString(res.getInt("quantity"));
+				String price= Double.toString(res.getDouble("price"));
+    		
+				OrderLine orderLine = new OrderLine(id,order_id,pizza_id,size_id,quantity,price);
+    			list_order_lines.add(orderLine);
+    		}
+    	}
+		return list_order_lines;
+
 	}
 }

@@ -4,11 +4,11 @@
     <title>Buy pizzas</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<a th:href="@{/pizzas}" >Basket</a>
+<a th:href="@{'/customer/' + ${userId} + '/basket'}" >Basket</a>
 <body>
     <h3>Here are all our pizzas !</h3>
     <th:block th:each="pizza: ${pizzas}">
-            <a th:href="@{'/pizzaedit/' + ${pizza.getId()}}" th:text="${pizza.getName()}"></a>
+            <a th:href="@{'/customer/' + ${userId} + '/buypizza/' + ${pizza.getId()}}" th:text="${pizza.getName()}"></a>
             <br>
      </th:block>
     </form>

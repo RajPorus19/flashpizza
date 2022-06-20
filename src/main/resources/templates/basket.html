@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Staff - user</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<button onclick="window.location.href='/customer'">logout</button>
+<br>
+<br>
+<body>
+    <p> Your basket :</p>
+    <form action="#" th:action="@{/deleteusers}" th:object="${orderlines}" method="post">
+    <th:block th:each="orderline : ${orderlines}">
+        <div>
+            <input type="checkbox" th:id="${orderline.getId()}" th:name="orderlinesChecked" th:value="${orderline.getId()}">
+            <label th:for="${orderline.getId()}" th:text="${orderline.getId()}"></label>
+            <a th:href="@{'/useredit/' + ${orderline.getId()}}">edit</a>
+        </div>
+     </th:block>
+     <p><input type="submit" value="Delete articles" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

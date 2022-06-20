@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.ibatis.type.TypeException;
+import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import com.flashpizza.flashpizza.models.Ingredient;
 import com.flashpizza.flashpizza.models.IngredientAPI;
 import com.flashpizza.flashpizza.models.Messenger;
 import com.flashpizza.flashpizza.models.MessengerAPI;
+import com.flashpizza.flashpizza.models.OrderLine;
 import com.flashpizza.flashpizza.models.Pizza;
 import com.flashpizza.flashpizza.models.PizzaAPI;
 import com.flashpizza.flashpizza.models.PizzaIngredient;
@@ -372,9 +374,53 @@ public class HelloController {
 
     @GetMapping("/customer/{id}")
 	public String buyPizza(@PathVariable int id,Model model) throws SQLException {
+		String customerId = Integer.toString(id);
 		PizzaAPI pizzaAPI = new PizzaAPI();
     	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
     	model.addAttribute("pizzas", pizzas);
+    	model.addAttribute("userId", customerId);
+		return "buy_pizzas";
+	}
+
+    @GetMapping("/customer/{id}/basket")
+	public String basket(@PathVariable int id,Model model) throws SQLException {
+		String strId = Integer.toString(id);
+    	UserAPI userAPI = new UserAPI();
+    	ArrayList<OrderLine> orderlines = userAPI.getOrderLines(strId);
+    	model.addAttribute("orderlines", orderlines);
+		return "basket";
+	}
+
+    @GetMapping("/customer/{user_id}/buypizza/{pizza_id}")
+	public String orderPizza(@PathVariable int user_id, @PathVariable int pizza_id, Model model) throws SQLException{
+    	UserAPI userAPI = new UserAPI();
+		String userId = Integer.toString(user_id);
+		String orderId = userAPI.get_current_order_id(userId);
+		String pizzaId= Integer.toString(pizza_id);
+		OrderLine orderline = new OrderLine();
+		orderline.setPizza_id(pizzaId);
+		orderline.setOrder_id(orderId);
+		orderline.setSize_id("1");
+    	model.addAttribute("orderline", orderline);
+    	model.addAttribute("userId", userId);
+    	model.addAttribute("pizzaId", pizzaId);
+		return "input_order_line";
+	}
+    @PostMapping("/customer/{user_id}/buypizza/{pizza_id}")
+	public String getOrderPizza(@PathVariable int user_id, @PathVariable int pizza_id, @ModelAttribute OrderLine orderline, Model model) throws SQLException{
+    	UserAPI userAPI = new UserAPI();
+
+		String userId = Integer.toString(user_id);
+		String pizzaId= Integer.toString(pizza_id);
+		userAPI.addOrderline(userId, pizzaId, orderline.getSize_id(), orderline.getQuantity());
+
+		// redirect
+		String customerId = Integer.toString(user_id);
+		PizzaAPI pizzaAPI = new PizzaAPI();
+    	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
+		model.addAttribute("pizzaId",pizzaId);
+    	model.addAttribute("pizzas", pizzas);
+    	model.addAttribute("userId", customerId);
 		return "buy_pizzas";
 	}
 }
