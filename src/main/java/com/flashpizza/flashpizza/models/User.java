@@ -6,7 +6,7 @@ public class User {
     private String id;
 
 
-    private String username;
+    private String firstname;
     private String password;
     private String email;
     private String phone_number;
@@ -15,9 +15,9 @@ public class User {
 
     }
 
-    public User(String id,String username, String password, String email, String phone_number){
+    public User(String id,String firstname, String password, String email, String phone_number){
         this.id = id;
-        this.username = username;
+        this.firstname = firstname;
         this.password = password;
         this.email = email;
         this.phone_number = phone_number;
@@ -48,12 +48,12 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public void setUsername(String username) {
-		this.username = username;
+    public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-    public String getUsername(){
-        return this.username;
+    public String getFirstname(){
+        return this.firstname;
     }
 
     public String getId() {

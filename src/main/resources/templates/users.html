@@ -14,7 +14,7 @@
     <th:block th:each="user : ${users}">
         <div>
             <input type="checkbox" th:id="${user.getId()}" th:name="usersChecked" th:value="${user.getId()}">
-            <label th:for="${user.getUsername()}" th:text="${user.getUsername()}"></label>
+            <label th:for="${user.getFirstname()}" th:text="${user.getFirstname()}"></label>
             <a th:href="@{'/useredit/' + ${user.getId()}}">edit</a>
         </div>
      </th:block>

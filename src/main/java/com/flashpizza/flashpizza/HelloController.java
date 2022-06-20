@@ -49,7 +49,10 @@ public class HelloController {
 	}
 
 	@GetMapping("/staff")
-	public String staff(){
+	public String staff(Model model) throws SQLException {
+		UserAPI userAPI = new UserAPI();
+		ArrayList<User> users = userAPI.get_users();
+		model.addAttribute("users", users);
 		return "staff";
 	}
 	

@@ -25,12 +25,12 @@ public class UserAPI {
     	if(res != null) {
         	while(res.next()) {
 				String id = Integer.toString(res.getInt("id"));
-    			String username  = res.getString("username");
+    			String firstname  = res.getString("firstname");
     			String password  = res.getString("password");
     			String email  = res.getString("email");
     			String phone_number  = res.getString("phone_number");
     		
-				User user = new User(id,username,password,email,phone_number);
+				User user = new User(id,firstname,password,email,phone_number);
     			users_list.add(user);
     		}
     	}
@@ -39,7 +39,7 @@ public class UserAPI {
 	}
 
 	public void addUser(User user) throws SQLException{
-		db.update_db("INSERT INTO user (username,phone_number,email,password,balance) VALUES (\""+user.getUsername()+"\",'"
+		db.update_db("INSERT INTO user (firstname,phone_number,email,password,balance) VALUES (\""+user.getFirstname()+"\",'"
 		+ user.getPhone_number()+"','"
 		+user.getEmail()+"','"
 		+user.getPassword()+"',0)");
@@ -50,12 +50,12 @@ public class UserAPI {
 	public User getUser(String id) throws SQLException{
 		ResultSet res = db.query_db("select * from user where id="+id);
 		while(res.next()) {
-			String username  = res.getString("username");
+			String firstname  = res.getString("firstname");
 			String password  = res.getString("password");
 			String email  = res.getString("email");
 			String phone_number  = res.getString("phone_number");
 		
-			User user = new User(id,username,password,email,phone_number);
+			User user = new User(id,firstname,password,email,phone_number);
 			return user;
 		}
 		return null;
@@ -63,7 +63,7 @@ public class UserAPI {
 
 	public void save(User user) throws SQLException{
 		String sql = "UPDATE user SET ";
-		sql += "username = '" + user.getUsername() + "',";
+		sql += "firstname = '" + user.getFirstname() + "',";
 		sql += "email = '" + user.getEmail() + "',";
 		sql += "phone_number = '" + user.getPhone_number() + "',";
 		sql += "password = '" + user.getPassword() + "'";
