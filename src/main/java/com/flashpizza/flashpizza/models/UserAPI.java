@@ -1,9 +1,7 @@
 package com.flashpizza.flashpizza.models;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.flashpizza.flashpizza.Database;
@@ -73,6 +71,38 @@ public class UserAPI {
 		sql += "password = '" + user.getPassword() + "'";
 		sql += "WHERE id=" + user.getId();
 		db.update_db(sql);
+	}
+
+	public void createOrder(String id) throws SQLException{
+		String sql = "INSERT INTO flashpizza.order (user_id) VALUES ("+id+")";
+		System.out.println(sql);
+		db.update_db(sql);
+	}
+	public void addOrderLine(String userId, String orderId, OrderLine orderline) throws SQLException{
+		String sql = "INSERT INTO  order_line (order_id, pizza_id, size_id, quantity) VALUES ("+
+		orderId + "," + orderline.getPizza_id() + "," + orderline.getSize_id() + "," + orderline.getQuantity()
+		+")";
+		db.update_db(sql);
+	}
+
+	public ArrayList<Order> getOrders(String userId) throws SQLException{
+		String sql = "SELECT * FROM flashpizza.order where user_id=" + userId;
+		ResultSet res = db.query_db(sql);
+		ArrayList<Order> order_list = new ArrayList<Order>();
+		while(res.next()) {
+			String id = Integer.toString(res.getInt("id"));
+			String state_id = Integer.toString(res.getInt("state_id"));
+			Double price = res.getDouble("price");
+
+			String strPrice = Double.toString(price);
+		
+			Order order = new Order();
+			order.setId(id);
+			order.setState_id(state_id);
+			order.setPrice(strPrice);
+			order_list.add(order);
+		}
+		return order_list;
 	}
 
 	public void addBalance(String userId, String amount) {

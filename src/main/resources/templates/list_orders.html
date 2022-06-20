@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Select order</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h3>Select the order you want to edit !</h3>
+    <th:block th:each="order: ${orders}">
+            <a th:href="@{'/customer/' + ${userId} + '/buypizza/' + ${order.getId()}}" th:text="${order.getState()} + 'price : ' + ${order.getPrice()}"></a>
+            <br>
+     </th:block>
+    </form>
+</body>
+</html>

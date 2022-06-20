@@ -8,9 +8,11 @@
     <button onclick="window.location.href='/customers'">Go back</button>
     <br>
     <br>
-    <button onclick="window.location.href='/'">Create order</button>
+    <form action="#" th:action="@{@{'/customer/' + ${user.getId()} + '/createorder'}}"  method="post">
+        <p><input type="submit" value="Create order" /></p>
+    </form>
     <br>
-    <button onclick="window.location.href='/'">View orders</button>
+    <a th:href="@{'/customer/' + ${user.getId()} + '/vieworder'}" >View orders</a>
     <br>
     <form action="#" th:action="@{@{'/customer/' + ${user.getId()}}}" th:object="${user}" method="post">
         <p>amount: <input type="text" th:field="*{balance}" /></p>

@@ -1,5 +1,7 @@
 package com.flashpizza.flashpizza.models;
 
+import java.sql.SQLClientInfoException;
+import java.sql.SQLException;
 
 public class Order{
 
@@ -63,5 +65,11 @@ public class Order{
     }
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getState() throws SQLException{
+        OrderStateAPI orderstateAPI = new OrderStateAPI();
+        State state = orderstateAPI.getState(this.state_id);
+        return state.getName();
     }
 }
