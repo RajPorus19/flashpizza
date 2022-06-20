@@ -436,10 +436,11 @@ public class HelloController {
 		return "basket";
 	}
 
-    @GetMapping("/customer/{user_id}/buypizza/{pizza_id}")
-	public String orderPizza(@PathVariable int user_id, @PathVariable int pizza_id, Model model) throws SQLException{
+    @GetMapping("/customer/{user_id}/buypizza/{order_id}/order/{pizza_id}")
+	public String orderPizza(@PathVariable int user_id, @PathVariable int pizza_id, @PathVariable int order_id, Model model) throws SQLException{
     	UserAPI userAPI = new UserAPI();
 		String userId = Integer.toString(user_id);
+		String orderId = Integer.toString(order_id);
 		//String orderId = userAPI.get_current_order_id(userId);
 		String pizzaId= Integer.toString(pizza_id);
 		OrderLine orderline = new OrderLine();
@@ -448,8 +449,43 @@ public class HelloController {
 		orderline.setSize_id("1");
     	model.addAttribute("orderline", orderline);
     	model.addAttribute("userId", userId);
+    	model.addAttribute("orderId", orderId);
     	model.addAttribute("pizzaId", pizzaId);
 		return "input_order_line";
+	}
+
+    @PostMapping("/customer/{user_id}/buypizza/{order_id}/order/{pizza_id}")
+	public String PostorderPizza(@PathVariable int user_id, @PathVariable int pizza_id, @PathVariable int order_id, Model model, @ModelAttribute OrderLine orderLine) throws SQLException{
+    	UserAPI userAPI = new UserAPI();
+		String userId = Integer.toString(user_id);
+		String orderId= Integer.toString(order_id);
+		//String orderId = userAPI.get_current_order_id(userId);
+		String pizzaId= Integer.toString(pizza_id);
+		OrderLine orderline = new OrderLine();
+		orderline.setPizza_id(pizzaId);
+		userAPI.addOrderLine(userId, orderId, orderline);
+		//orderline.setOrder_id(orderId);
+		orderline.setSize_id("1");
+    	model.addAttribute("orderline", orderline);
+    	model.addAttribute("userId", userId);
+    	model.addAttribute("pizzaId", pizzaId);
+		return "display_orderline";
+	}
+
+
+    @GetMapping("/customer/{user_id}/buypizza/{order_id}")
+	public String orderPizzas(@PathVariable int user_id, @PathVariable int order_id, Model model) throws SQLException{
+
+		String userId = Integer.toString(user_id);
+		String orderId = Integer.toString(order_id);
+
+		PizzaAPI pizzaAPI = new PizzaAPI();
+		ArrayList<Pizza> list_pizza = pizzaAPI.get_pizzas();
+
+    	model.addAttribute("orderId", orderId);
+    	model.addAttribute("userId", userId);
+    	model.addAttribute("pizzas", list_pizza);
+		return "buy_pizzas";
 	}
     @PostMapping("/customer/{user_id}/createorder")
 	public String createOrder(@PathVariable int user_id, Model model) throws SQLException{
