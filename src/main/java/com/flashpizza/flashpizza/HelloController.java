@@ -21,6 +21,7 @@ import com.flashpizza.flashpizza.models.Pizza;
 import com.flashpizza.flashpizza.models.PizzaAPI;
 import com.flashpizza.flashpizza.models.PizzaIngredient;
 import com.flashpizza.flashpizza.models.PizzaIngredientAPI;
+import com.flashpizza.flashpizza.models.PizzaSizeAPI;
 import com.flashpizza.flashpizza.models.State;
 import com.flashpizza.flashpizza.models.StateAPI;
 import com.flashpizza.flashpizza.models.TypeVehicle;
@@ -446,23 +447,29 @@ public class HelloController {
 		OrderLine orderline = new OrderLine();
 		orderline.setPizza_id(pizzaId);
 		//orderline.setOrder_id(orderId);
+		PizzaSizeAPI pizzaSizeAPI = new PizzaSizeAPI();
 		orderline.setSize_id("1");
     	model.addAttribute("orderline", orderline);
     	model.addAttribute("userId", userId);
     	model.addAttribute("orderId", orderId);
     	model.addAttribute("pizzaId", pizzaId);
+    	model.addAttribute("sizes", pizzaSizeAPI.get_pizzasize_list());
 		return "input_order_line";
 	}
 
     @PostMapping("/customer/{user_id}/buypizza/{order_id}/order/{pizza_id}")
-	public String PostorderPizza(@PathVariable int user_id, @PathVariable int pizza_id, @PathVariable int order_id, Model model, @ModelAttribute OrderLine orderline) throws SQLException{
+	public String PostorderPizza(@PathVariable int user_id, @PathVariable int pizza_id, @PathVariable int order_id, Model model, @ModelAttribute OrderLine orderline,@RequestParam("sizesChecked") ArrayList<String> sizesChecked) throws SQLException{
     	UserAPI userAPI = new UserAPI();
 		String userId = Integer.toString(user_id);
 		String orderId= Integer.toString(order_id);
 		//String orderId = userAPI.get_current_order_id(userId);
 		String pizzaId= Integer.toString(pizza_id);
 		orderline.setPizza_id(pizzaId);
-		orderline.setSize_id("1");
+		String size = "1";
+		for (String string : sizesChecked) {
+			size=string;
+		}
+		orderline.setSize_id(size);
 		userAPI.addOrderLine(userId, orderId, orderline);
 		//orderline.setOrder_id(orderId);
     	model.addAttribute("orderline", orderline);
