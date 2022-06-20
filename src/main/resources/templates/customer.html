@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+</head>
+<body>
+    <button onclick="window.location.href='/customers'">Go back</button>
+    <br>
+    <br>
+    <button onclick="window.location.href='/'">Create order</button>
+    <br>
+    <button onclick="window.location.href='/'">View orders</button>
+    <br>
+    <form action="#" th:action="@{/addbalance}" th:object="${user}" method="post">
+        <p>amount: <input type="text" th:field="*{balance}" /></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+    <br>
+    <label th:for="${user.getBalance()}" th:text="${'Current balance ' + user.getBalance() + ' €'}"></label>
+</body>
+</html>

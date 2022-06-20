@@ -82,6 +82,13 @@ public class HelloController {
 		userAPI.addUser(user) ;
 		return "display_user";
 	}
+	@PostMapping("/addbalance")
+	public String addBalance(@ModelAttribute User user,Model model) throws SQLException {
+		//model.addAttribute("user", user);
+		UserAPI userAPI = new UserAPI();
+		userAPI.addBalance(user.getId(), user.getBalance());
+		return "customer";
+	}
 
 
 	@GetMapping("/useredit/{id}")
@@ -375,13 +382,12 @@ public class HelloController {
 	}
 
     @GetMapping("/customer/{id}")
-	public String buyPizza(@PathVariable int id,Model model) throws SQLException {
+	public String customer(@PathVariable int id,Model model) throws SQLException {
 		String customerId = Integer.toString(id);
-		PizzaAPI pizzaAPI = new PizzaAPI();
-    	ArrayList<Pizza> pizzas = pizzaAPI.get_pizzas();
-    	model.addAttribute("pizzas", pizzas);
-    	model.addAttribute("userId", customerId);
-		return "buy_pizzas";
+		UserAPI userAPI = new UserAPI();
+		User user = userAPI.getUser(customerId);
+		model.addAttribute("user", user);
+		return "customer";
 	}
 
     @GetMapping("/customer/{id}/basket")

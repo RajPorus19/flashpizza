@@ -29,8 +29,9 @@ public class UserAPI {
     			String password  = res.getString("password");
     			String email  = res.getString("email");
     			String phone_number  = res.getString("phone_number");
+				String balance  = res.getString("balance");
     		
-				User user = new User(id,firstname,password,email,phone_number);
+				User user = new User(id,firstname,password,email,phone_number, balance);
     			users_list.add(user);
     		}
     	}
@@ -54,8 +55,9 @@ public class UserAPI {
 			String password  = res.getString("password");
 			String email  = res.getString("email");
 			String phone_number  = res.getString("phone_number");
+			String balance  = res.getString("balance");
 		
-			User user = new User(id,firstname,password,email,phone_number);
+			User user = new User(id,firstname,password,email,phone_number,balance);
 			return user;
 		}
 		return null;
@@ -119,5 +121,11 @@ public class UserAPI {
     	}
 		return list_order_lines;
 
+	}
+
+	public void addBalance(String userId, String amount) {
+		String sql = "insert into transaction (user_id, amount) values (" + userId +","+ amount+")";
+		System.out.print(sql);
+		db.update_db(sql);
 	}
 }

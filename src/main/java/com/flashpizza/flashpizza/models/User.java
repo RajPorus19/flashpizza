@@ -10,17 +10,19 @@ public class User {
     private String password;
     private String email;
     private String phone_number;
+    private String balance;
 
     public User(){
 
     }
 
-    public User(String id,String firstname, String password, String email, String phone_number){
+    public User(String id,String firstname, String password, String email, String phone_number, String balance){
         this.id = id;
         this.firstname = firstname;
         this.password = password;
         this.email = email;
         this.phone_number = phone_number;
+        this.balance = balance;
     }
 
 
@@ -61,6 +63,10 @@ public class User {
     }
     public void setId(String id){
         this.id = id;
+    }
+    public String getBalance() {return balance;}
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
 }
