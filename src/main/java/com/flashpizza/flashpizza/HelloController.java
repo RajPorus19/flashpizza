@@ -429,8 +429,8 @@ public class HelloController {
 	public String basket(@PathVariable int id,Model model) throws SQLException {
 		String strId = Integer.toString(id);
     	UserAPI userAPI = new UserAPI();
-    	ArrayList<OrderLine> orderlines = userAPI.getOrderLines(strId);
-    	model.addAttribute("orderlines", orderlines);
+    	//ArrayList<OrderLine> orderlines = userAPI.getOrderLines(strId);
+    	//model.addAttribute("orderlines", orderlines);
 		return "basket";
 	}
 
@@ -438,11 +438,11 @@ public class HelloController {
 	public String orderPizza(@PathVariable int user_id, @PathVariable int pizza_id, Model model) throws SQLException{
     	UserAPI userAPI = new UserAPI();
 		String userId = Integer.toString(user_id);
-		String orderId = userAPI.get_current_order_id(userId);
+		//String orderId = userAPI.get_current_order_id(userId);
 		String pizzaId= Integer.toString(pizza_id);
 		OrderLine orderline = new OrderLine();
 		orderline.setPizza_id(pizzaId);
-		orderline.setOrder_id(orderId);
+		//orderline.setOrder_id(orderId);
 		orderline.setSize_id("1");
     	model.addAttribute("orderline", orderline);
     	model.addAttribute("userId", userId);
@@ -455,7 +455,7 @@ public class HelloController {
 
 		String userId = Integer.toString(user_id);
 		String pizzaId= Integer.toString(pizza_id);
-		userAPI.addOrderline(userId, pizzaId, orderline.getSize_id(), orderline.getQuantity());
+		//userAPI.addOrderline(userId, pizzaId, orderline.getSize_id(), orderline.getQuantity());
 
 		// redirect
 		String customerId = Integer.toString(user_id);
